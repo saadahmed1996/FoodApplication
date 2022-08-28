@@ -9,7 +9,7 @@ class AddressModel {
 
   AddressModel(
       {id,
-      required addressType,
+      addressType,
       contactPersonName,
       contactPersonNumber,
       address,
@@ -22,6 +22,7 @@ class AddressModel {
     _address = address;
     _latitude = latitude;
     _longitude = longitude;
+    _address = address;
   }
   String get address => _address;
   String get addressType => _addressType;
@@ -38,5 +39,17 @@ class AddressModel {
     _address = json["address"];
     _latitude = json["latitude"];
     _longitude = json["longitude"];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['id'] = this._id;
+    data['address_type'] = this._address;
+    data['contact_person_name'] = this._contactPersonName;
+    data['contact_person_number'] = this._contactPersonNumber;
+    data['address'] = this._address;
+    data['longitude'] = this._longitude;
+    data['latitude'] = this._latitude;
+    return data;
   }
 }

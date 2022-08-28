@@ -299,14 +299,15 @@ class CartPage extends StatelessWidget {
                           //that you must login before checking out your order.
                           // popularProduct.addItem(product);
                           if (Get.find<AuthController>().userLoggedIn()) {
-                            cartController.addToHistory();
-                            showCustomSnackbarForPass('Your item has been placed & added to the history page');
-                            // if (Get.find<LocationController>()
-                            //     .addressList
-                            //     .isEmpty) {
-                            //   Get.toNamed(RouterHelper.getAddressPage());
-
-                            // }
+                            // cartController.addToHistory();
+                            //showCustomSnackbarForPass('Your item has been placed & added to the history page');
+                            if (Get.find<LocationController>()
+                                .addressList
+                                .isEmpty) {
+                              Get.toNamed(RouterHelper.getAddressPage());
+                            } else {
+                              Get.offNamed(RouterHelper.getInitial());
+                            }
                           } else {
                             Get.toNamed(RouterHelper.signPage);
                           }

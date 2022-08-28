@@ -26,120 +26,118 @@ class RecommendedFoodDetail extends StatelessWidget {
     Get.find<PopularProductController>()
         .initProduct(product, Get.find<CartController>());
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: CustomScrollView(
-          slivers: [
-            //Container for Image, two icons (cart & back button) along the recipe name heading
-            SliverAppBar(
-              automaticallyImplyLeading: false,
-              toolbarHeight: 70,
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                      onTap: () {
-                        if (page == 'cartPage') {
-                          Get.toNamed(RouterHelper.getCartPage());
-                        } else {
-                          Get.toNamed(RouterHelper.getInitial());
-                        }
-                      },
-                      child: AppIcon(icon: Icons.clear)),
-                  //AppIcon(icon: Icons.shopping_cart_outlined),
-                  GetBuilder<PopularProductController>(builder: (controller) {
-                    return GestureDetector(
-                      onTap: () {
-                        if (controller.totalItems >= 1) {
-                          Get.toNamed(RouterHelper.getCartPage());
-                        }
-                      },
-                      child: Stack(
-                        children: [
-                          AppIcon(icon: Icons.shopping_cart_outlined),
-                          controller.totalItems >= 1
-                              ? Positioned(
-                                  top: 0,
-                                  right: 0,
-                                  child: AppIcon(
-                                    icon: Icons.circle,
-                                    size: 20,
-                                    iconColor: Colors.transparent,
-                                    backgroundColor: AppColors.mainColor,
-                                  ),
-                                )
-                              : Container(),
-                          Get.find<PopularProductController>().totalItems >= 1
-                              ? Positioned(
-                                  top: 4,
-                                  right: 5,
-                                  child: BigText(
-                                    text: Get.find<PopularProductController>()
-                                        .totalItems
-                                        .toString(),
-                                    size: 12,
-                                    color: Colors.white,
-                                  ))
-                              : Container(),
-                        ],
-                      ),
-                    );
-                  }),
-                ],
-              ),
-              bottom: PreferredSize(
-                preferredSize: Size.fromHeight(20),
-                child: Container(
-                  child: Center(
-                    child: BigText(
-                      size: Dimensions.font26,
-                      text: product.name!,
+      backgroundColor: Colors.white,
+      body: CustomScrollView(
+        slivers: [
+          //Container for Image, two icons (cart & back button) along the recipe name heading
+          SliverAppBar(
+            automaticallyImplyLeading: false,
+            toolbarHeight: 70,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                    onTap: () {
+                      if (page == 'cartPage') {
+                        Get.toNamed(RouterHelper.getCartPage());
+                      } else {
+                        Get.toNamed(RouterHelper.getInitial());
+                      }
+                    },
+                    child: AppIcon(icon: Icons.clear)),
+                //AppIcon(icon: Icons.shopping_cart_outlined),
+                GetBuilder<PopularProductController>(builder: (controller) {
+                  return GestureDetector(
+                    onTap: () {
+                      if (controller.totalItems >= 1) {
+                        Get.toNamed(RouterHelper.getCartPage());
+                      }
+                    },
+                    child: Stack(
+                      children: [
+                        AppIcon(icon: Icons.shopping_cart_outlined),
+                        controller.totalItems >= 1
+                            ? Positioned(
+                                top: 0,
+                                right: 0,
+                                child: AppIcon(
+                                  icon: Icons.circle,
+                                  size: 20,
+                                  iconColor: Colors.transparent,
+                                  backgroundColor: AppColors.mainColor,
+                                ),
+                              )
+                            : Container(),
+                        Get.find<PopularProductController>().totalItems >= 1
+                            ? Positioned(
+                                top: 4,
+                                right: 5,
+                                child: BigText(
+                                  text: Get.find<PopularProductController>()
+                                      .totalItems
+                                      .toString(),
+                                  size: 12,
+                                  color: Colors.white,
+                                ))
+                            : Container(),
+                      ],
                     ),
+                  );
+                }),
+              ],
+            ),
+            bottom: PreferredSize(
+              preferredSize: Size.fromHeight(20),
+              child: Container(
+                child: Center(
+                  child: BigText(
+                    size: Dimensions.font26,
+                    text: product.name!,
                   ),
-                  width: double.maxFinite,
-                  padding: EdgeInsets.only(top: 5, bottom: 10),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(Dimensions.radius20),
-                      topRight: Radius.circular(Dimensions.radius20),
-                    ),
+                ),
+                width: double.maxFinite,
+                padding: EdgeInsets.only(top: 5, bottom: 10),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(Dimensions.radius20),
+                    topRight: Radius.circular(Dimensions.radius20),
                   ),
                 ),
               ),
-              pinned: true,
-              backgroundColor: AppColors.yellowColor,
-              expandedHeight: 300,
-              flexibleSpace: FlexibleSpaceBar(
-                background: Image.network(
-                  AppConstants.BASE_URL +
-                      AppConstants.UPLOAD_URL +
-                      product.img!,
-                  width: double.maxFinite,
-                  fit: BoxFit.cover,
-                ),
+            ),
+            pinned: true,
+            backgroundColor: AppColors.yellowColor,
+            expandedHeight: 300,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Image.network(
+                AppConstants.BASE_URL + AppConstants.UPLOAD_URL + product.img!,
+                width: double.maxFinite,
+                fit: BoxFit.cover,
               ),
             ),
-            //Description Container in a sliver
-            SliverToBoxAdapter(
-              child: Column(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(
-                      left: Dimensions.width20,
-                      right: Dimensions.width20,
-                    ),
-                    child: ExpandableTextWidget(
-                      text: product.description!,
-                    ),
+          ),
+          //Description Container in a sliver
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                Container(
+                  margin: EdgeInsets.only(
+                    left: Dimensions.width20,
+                    right: Dimensions.width20,
                   ),
-                ],
-              ),
+                  child: ExpandableTextWidget(
+                    text: product.description!,
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-        //bottom nav bar for adding and removing items as well as add more item button.
-        bottomNavigationBar:
-            GetBuilder<PopularProductController>(builder: (controller) {
+          ),
+        ],
+      ),
+      //bottom nav bar for adding and removing items as well as add more item button.
+      bottomNavigationBar: GetBuilder<PopularProductController>(
+        builder: (controller) {
           return Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -250,6 +248,8 @@ class RecommendedFoodDetail extends StatelessWidget {
               ),
             ],
           );
-        }));
+        },
+      ),
+    );
   }
 }

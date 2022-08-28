@@ -45,7 +45,10 @@ class RouterHelper {
     //Bottom Nav Bar Home Page
     GetPage(
       name: initial,
-      page: () => HomePage(),
+      page: () {
+        return HomePage();
+      },
+      transition: Transition.fade,
     ),
     //Sign In Page
     GetPage(

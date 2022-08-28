@@ -108,20 +108,50 @@ class UserAccountPage extends StatelessWidget {
                                     if (Get.find<LocationController>()
                                         .addressList
                                         .isEmpty) {
-                                      Get.toNamed(RouterHelper.getAddressPage());
-
+                                      Get.toNamed(
+                                          RouterHelper.getAddressPage());
                                     }
                                   }
                                 },
-                                child: AccountAppIconTextWidget(
-                                  bigText: BigText(text: "Tap here to add your address"),
-                                  appIcon: AppIcon(
-                                    icon: Icons.location_on,
-                                    iconColor: Colors.white,
-                                    iconSize: Dimensions.iconSize24,
-                                    backgroundColor: AppColors.signColor,
-                                  ),
-                                ),
+                                child: GetBuilder<LocationController>(
+                                    builder: (locationController) {
+                                  if (_userLoggedIn &&
+                                      locationController.addressList.isEmpty) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Get.offNamed(
+                                            RouterHelper.getAddressPage());
+                                      },
+                                      child: AccountAppIconTextWidget(
+                                        bigText: BigText(
+                                            text:
+                                                "Tap here to add your address"),
+                                        appIcon: AppIcon(
+                                          icon: Icons.location_on,
+                                          iconColor: Colors.white,
+                                          iconSize: Dimensions.iconSize24,
+                                          backgroundColor: AppColors.signColor,
+                                        ),
+                                      ),
+                                    );
+                                  } else {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Get.offNamed(
+                                            RouterHelper.getAddressPage());
+                                      },
+                                      child: AccountAppIconTextWidget(
+                                        bigText: BigText(text: "Your Address"),
+                                        appIcon: AppIcon(
+                                          icon: Icons.location_on,
+                                          iconColor: Colors.white,
+                                          iconSize: Dimensions.iconSize24,
+                                          backgroundColor: AppColors.signColor,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                }),
                               ),
                               SizedBox(
                                 height: Dimensions.height20,
@@ -149,6 +179,8 @@ class UserAccountPage extends StatelessWidget {
                                     Get.find<CartController>().clearList();
                                     Get.find<CartController>()
                                         .clearCartHistory();
+                                    Get.find<LocationController>()
+                                        .clearAddressList();
                                     Get.offNamed(RouterHelper.getSignInPage());
                                   } else {
                                     // showCustomSnackbar('Please login');
